@@ -161,7 +161,7 @@ function blox_load_scheduler_addon() {
 			}
 
 			$docs_link = esc_url( add_query_arg( array(
-					'utm_source'   => 'admin-plugins-page',
+					'utm_source'   => 'blox-scheduler',
 					'utm_medium'   => 'plugin',
 					'utm_campaign' => 'BloxPluginsPage',
 					'utm_content'  => 'plugin-page-link'
@@ -169,7 +169,7 @@ function blox_load_scheduler_addon() {
 			);
 
 			$new_links = array(
-				'<a href="' . $docs_link . '">' . esc_html__( 'Documentation', 'blox-scheduler' ) . '</a>',
+				'<a href="' . $docs_link . '" target="_blank">' . esc_html__( 'Documentation', 'blox-scheduler' ) . '</a>',
 			);
 
 			$links = array_merge( $links, $new_links );
