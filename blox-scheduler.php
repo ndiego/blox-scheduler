@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Blox - Scheduler Addon
  * Plugin URI:  https://www.bloxwp.com
- * Description: Enables the Scheduler Addon for Blox.
+ * Description: Enables the Scheduler Addon for Blox
  * Author:      Nick Diego
  * Author URI:  http://www.outermostdesign.com
  * Version:     1.0.0
@@ -129,7 +129,7 @@ function blox_load_scheduler_addon() {
 			add_action( 'blox_metabox_styles', array( $this, 'enqueue_styles' ) );
 			
 			// Let Blox know the addon is active
-			add_filter( 'blox_active_addons', array( $this, 'notify_of_active_addon' ), 10 );
+			add_filter( 'blox_get_active_addons', array( $this, 'notify_of_active_addon' ), 10 );
 		}
 		
 		
@@ -379,7 +379,7 @@ function blox_load_scheduler_addon() {
 		 */
 		public function notify_of_active_addon( $addons ) {
 
-			$addons['blox-scheduler'] = __( 'Blox Scheduler Addon', 'blox-scheduler' );
+			$addons['scheduler_addon'] = __( 'Blox Scheduler Addon', 'blox-scheduler' );
 			return $addons;
 		}
 
