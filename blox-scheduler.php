@@ -379,7 +379,7 @@ function blox_load_scheduler_addon() {
 		 */
 		public function notify_of_active_addon( $addons ) {
 
-			$addons['scheduler_addon'] = __( 'Blox Scheduler Addon', 'blox-scheduler' );
+			$addons['scheduler_addon'] = __( 'Scheduler Addon', 'blox-scheduler' );
 			return $addons;
 		}
 
