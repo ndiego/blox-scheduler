@@ -35,11 +35,18 @@ jQuery(document).ready(function($) {
 	$.each(phpDate, function( index, value ) {
 		dateFormat = dateFormat.replace(index,value);
 	});
-	
-	// Implement datetimepicker
-	$('.scheduler-date').datetimepicker({
-		dateFormat: dateFormat,
-		timeFormat: timeFormat
-	});
 
+
+	// Show date/time picker - this setup need to tackle ajax for local blocks
+	$(document).on( 'click', '.scheduler-date', function(e) {
+
+		e.preventDefault();
+		
+		$(this).datetimepicker({
+			dateFormat: dateFormat,
+			timeFormat: timeFormat
+		});
+		
+		$( this ).datetimepicker( "show" );
+	});
 });

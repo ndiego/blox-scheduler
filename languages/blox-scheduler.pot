@@ -1,0 +1,100 @@
+# Copyright (C) 2016 Blox - Scheduler Addon
+# This file is distributed under the same license as the Blox - Scheduler Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Blox - Scheduler Addon 0.9.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/blox-scheduler\n"
+"POT-Creation-Date: 2016-04-14 01:06:17+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: blox-scheduler.php:172
+msgid "Documentation"
+msgstr ""
+
+#: blox-scheduler.php:209
+msgid "Enable Scheduler"
+msgstr ""
+
+#: blox-scheduler.php:213
+msgid "Check to enable block scheduling"
+msgstr ""
+
+#: blox-scheduler.php:218
+msgid "Begin Date/Time"
+msgstr ""
+
+#: blox-scheduler.php:220
+msgid "Begin Now"
+msgstr ""
+
+#: blox-scheduler.php:222
+msgid "Enter the date and time you want the block to %1$sbegin%2$s showing. Leave blank to show now."
+msgstr ""
+
+#: blox-scheduler.php:227
+msgid "End Date/Time"
+msgstr ""
+
+#: blox-scheduler.php:229
+msgid "Never End"
+msgstr ""
+
+#: blox-scheduler.php:231
+msgid "Enter the date and time you want the block to %1$sstop%2$s showing. Leave blank for never."
+msgstr ""
+
+#: blox-scheduler.php:381
+msgid "Scheduler Addon"
+msgstr ""
+
+#: includes/global/sandbox.php:71
+msgid "Blox Widgets"
+msgstr ""
+
+#: includes/global/sandbox.php:72
+msgid "Place all widgets you would like to make available to Blox here. You can then toggle which ones you would like to use within Blox."
+msgstr ""
+
+#: includes/global/sandbox.php:108
+msgid "Widgets Settings"
+msgstr ""
+
+#: includes/global/sandbox.php:110
+msgid "Available Widgets"
+msgstr ""
+
+#: includes/global/sandbox.php:153
+msgid "Select All"
+msgstr ""
+
+#: includes/global/sandbox.php:153
+msgid "Unselect All"
+msgstr ""
+
+#: includes/global/sandbox.php:235
+msgid "You forgot to select some widgets to display!"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "Blox - Scheduler Addon"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.bloxwp.com/addons/scheduler"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Enables the Scheduler Addon for Blox"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Nick Diego"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.outermostdesign.com"
+msgstr ""

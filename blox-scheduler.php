@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Blox - Scheduler Addon
- * Plugin URI:  https://www.bloxwp.com
+ * Plugin URI:  https://www.bloxwp.com/addons/scheduler
  * Description: Enables the Scheduler Addon for Blox
  * Author:      Nick Diego
  * Author URI:  http://www.outermostdesign.com
- * Version:     1.0.0
+ * Version:     0.9.0
  * Text Domain: blox-scheduler
  * Domain Path: languages
  *
@@ -370,7 +370,6 @@ function blox_load_scheduler_addon() {
        		wp_enqueue_style( 'scheduler-styles' );
 		}
 
-	
 	
 		/**
 		 * Let Blox know this addon has been activated.
