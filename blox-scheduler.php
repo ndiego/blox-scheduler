@@ -5,7 +5,7 @@
  * Description: Enables the Scheduler Addon for Blox
  * Author:      Nick Diego
  * Author URI:  http://www.outermostdesign.com
- * Version:     0.9.0
+ * Version:     1.0.0
  * Text Domain: blox-scheduler
  * Domain Path: languages
  *
@@ -69,7 +69,7 @@ function blox_load_scheduler_addon() {
 		 *
 		 * @var string
 		 */
-		public $version = '0.9.0';
+		public $version = '1.0.0';
 
 		/**
 		 * The name of the plugin.
