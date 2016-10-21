@@ -203,13 +203,6 @@ function blox_load_scheduler_addon() {
 		 * @param bool $global	      The block state
 		 */
 		public function print_scheduler_settings( $id, $name_prefix, $get_prefix, $global ) {
-
-            $begin = $get_prefix['scheduler']['begin'];
-
-            if ( ! empty( $begin ) ) {
-                $begin = date( 'Y-m-d g:i a', strtotime( $begin, current_time( 'timestamp' ) ) );
-            }
-
             ?>
 
 			<tr>
