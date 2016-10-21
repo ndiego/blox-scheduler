@@ -69,7 +69,7 @@ function blox_load_scheduler_addon() {
 		 *
 		 * @var string
 		 */
-		public $version = '1.0.0';
+		public $version = '1.1.0';
 
 		/**
 		 * The name of the plugin.
@@ -78,7 +78,7 @@ function blox_load_scheduler_addon() {
 		 *
 		 * @var string
 		 */
-		public $plugin_name = 'Scheduler Add-on';
+		public $plugin_name = 'Scheduler Addon';
 
 		/**
 		 * Unique plugin slug identifier.
