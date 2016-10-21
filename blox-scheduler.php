@@ -1,26 +1,26 @@
 <?php
 /**
- * Plugin Name: Blox - Scheduler Addon
- * Plugin URI:  https://www.bloxwp.com/addons/scheduler
- * Description: Enables the Scheduler Addon for Blox
+ * Plugin Name: Blox - Scheduler Add-on
+ * Plugin URI:  https://www.bloxwp.com/add-ons/scheduler
+ * Description: Enables the Scheduler Add-on for Blox
  * Author:      Nick Diego
  * Author URI:  http://www.outermostdesign.com
- * Version:     1.0.0
+ * Version:     1.1.0
  * Text Domain: blox-scheduler
  * Domain Path: languages
  *
- * Blox is free software: you can redistribute it and/or modify
+ * This add-on is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * any later version.
  *
- * Blox is distributed in the hope that it will be useful,
+ * This add-on is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Blox. If not, see <http://www.gnu.org/licenses/>.
+ * along with this add-on. If not, see <http://www.gnu.org/licenses/>.
  */
 
 
@@ -78,8 +78,8 @@ function blox_load_scheduler_addon() {
 		 *
 		 * @var string
 		 */
-		public $plugin_name = 'Scheduler Addon';
-		
+		public $plugin_name = 'Scheduler Add-on';
+
 		/**
 		 * Unique plugin slug identifier.
 		 *
@@ -107,32 +107,32 @@ function blox_load_scheduler_addon() {
 
 			// Load the plugin textdomain.
 			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-			
+
 			// Add additional links to the plugin's row on the admin plugin page
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 
-			// Initialize the addon license 
+			// Initialize the addon license
 			add_action( 'init', array( $this, 'license_init' ) );
-			
+
 			// Add and save all scheduler settings
 			add_action( 'blox_visibility_settings', array( $this, 'print_scheduler_settings' ), 10, 4 );
 			add_filter( 'blox_save_visibility_settings', array( $this, 'save_scheduler_settings' ), 10, 4 );
-			
+
 			// Modify the frontend visibility test based on scheduler settings
 			add_filter( 'blox_content_block_visibility_test', array( $this, 'run_scheduler' ), 10, 4 );
-			
+
 			// Add scheduler meta data to local and global blocks
 			add_filter( 'blox_visibility_meta_data', array( $this, 'scheduler_meta_data' ), 10, 3 );
 
-			// Add necessary scripts and styles 
+			// Add necessary scripts and styles
 			add_action( 'blox_metabox_scripts', array( $this, 'enqueue_scripts' ) );
 			add_action( 'blox_metabox_styles', array( $this, 'enqueue_styles' ) );
-			
+
 			// Let Blox know the addon is active
 			add_filter( 'blox_get_active_addons', array( $this, 'notify_of_active_addon' ), 10 );
 		}
-		
-		
+
+
 		/**
 		 * Loads the plugin textdomain for translation.
 		 *
@@ -141,8 +141,8 @@ function blox_load_scheduler_addon() {
 		public function load_textdomain() {
 			load_plugin_textdomain( $this->plugin_slug, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
-		
-		
+
+
 		/**
 		 * Adds additional links to the plugin row meta links
 		 *
@@ -176,38 +176,45 @@ function blox_load_scheduler_addon() {
 
 			return $links;
 		}
-		
-		
+
+
 		/**
 		 * Load license settings
 		 *
 		 * @since 1.0.0
 		 */
 		public function license_init() {
-			
+
 			// Setup the license
 			if ( class_exists( 'Blox_License' ) ) {
 				$blox_scheduler_addon_license = new Blox_License( __FILE__, $this->plugin_name, $this->version, 'Nicholas Diego', 'blox_scheduler_addon_license_key', 'https://www.bloxwp.com', 'addons' );
 			}
 		}
 
-		
+
 		/**
 		 * Print scheduler settings on visibility tab
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param int $id             The id of the content block, either global or individual (attached to post/page/cpt) 
+		 * @param int $id             The id of the content block, either global or individual (attached to post/page/cpt)
 		 * @param string $name_prefix The prefix for saving each setting
 		 * @param string $get_prefix  The prefix for retrieving each setting
 		 * @param bool $global	      The block state
 		 */
 		public function print_scheduler_settings( $id, $name_prefix, $get_prefix, $global ) {
-			?>
-			
+
+            $begin = $get_prefix['scheduler']['begin'];
+
+            if ( ! empty( $begin ) ) {
+                $begin = date( 'Y-m-d g:i a', strtotime( $begin, current_time( 'timestamp' ) ) );
+            }
+
+            ?>
+
 			<tr>
 				<th scope="row"><?php _e( 'Enable Scheduler', 'blox-scheduler' ); ?></th>
-				<td>					
+				<td>
 					<label>
 						<input type="checkbox" name="<?php echo $name_prefix; ?>[scheduler][enable]" value="1" <?php ! empty( $get_prefix['scheduler']['enable'] ) ? checked( $get_prefix['scheduler']['enable'] ) : ''; ?> >
 						<?php echo __( 'Check to enable block scheduling', 'blox-scheduler' ); ?>
@@ -219,8 +226,8 @@ function blox_load_scheduler_addon() {
 				<td>
 					<input type="text" class="blox-half-text scheduler-date" name="<?php echo $name_prefix; ?>[scheduler][begin]" value="<?php echo ! empty( $get_prefix['scheduler']['begin'] ) ? esc_attr( $get_prefix['scheduler']['begin'] ) : ''; ?>" placeholder="<?php _e( 'Begin Now', 'blox-scheduler' );?>"/>
 					<div class="blox-description">
-						<?php echo sprintf( __( 'Enter the date and time you want the block to %1$sbegin%2$s showing. Leave blank to show now.', 'blox-scheduler' ), '<strong>', '</strong>' ); ?>
-					</div>			
+						<?php echo sprintf( __( 'Enter the date and time (yyyy-mm-dd hh:mm am) you want the block to %1$sbegin%2$s showing. Leave blank to show now.', 'blox-scheduler' ), '<strong>', '</strong>' ); ?>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -228,32 +235,32 @@ function blox_load_scheduler_addon() {
 				<td>
 					<input type="text" class="blox-half-text scheduler-date" name="<?php echo $name_prefix; ?>[scheduler][end]" value="<?php echo ! empty( $get_prefix['scheduler']['end'] ) ? esc_attr( $get_prefix['scheduler']['end'] ) : ''; ?>" placeholder="<?php _e( 'Never End', 'blox-scheduler' );?>"/>
 					<div class="blox-description">
-						<?php echo sprintf( __( 'Enter the date and time you want the block to %1$sstop%2$s showing. Leave blank for never.', 'blox-scheduler' ), '<strong>', '</strong>' ); ?>
-					</div>			
+						<?php echo sprintf( __( 'Enter the date and time (yyyy-mm-dd hh:mm am) you want the block to %1$sstop%2$s showing. Leave blank for never.', 'blox-scheduler' ), '<strong>', '</strong>' ); ?>
+					</div>
 				</td>
 			</tr>
-			
+
 			<?php
 		}
-		
-		
+
+
 		/**
 		 * Print scheduler settings on visibility tab
 		 *
 		 * @since 1.0.0
-		 * 
+		 *
 		 * @return array $settings    Array of all existing settings
-		 * @param int $post_id        The global block id or the post/page/custom post-type id corresponding to the local block 
+		 * @param int $post_id        The global block id or the post/page/custom post-type id corresponding to the local block
 		 * @param string $name_prefix The prefix for saving each setting
 		 * @param bool $global        The block state
 		 *
 		 * @return array $settings    Return an array of updated settings
 		 */
 		public function save_scheduler_settings( $settings, $post_id, $name_prefix, $global ) {
-			
+
 			$settings['scheduler']['enable'] = isset( $name_prefix['scheduler']['enable'] ) ? 1 : 0;
-			$settings['scheduler']['begin']  = esc_attr( $name_prefix['scheduler']['begin'] );
-			$settings['scheduler']['end']    = esc_attr( $name_prefix['scheduler']['end'] );
+			$settings['scheduler']['begin']  = date( 'Y-m-d g:i a', strtotime( esc_attr( $name_prefix['scheduler']['begin'] ), current_time( 'timestamp' ) ) );
+			$settings['scheduler']['end']    = date( 'Y-m-d g:i a', strtotime( esc_attr( $name_prefix['scheduler']['end'] ), current_time( 'timestamp' ) ) );
 
 			return $settings;
 		}
@@ -268,15 +275,15 @@ function blox_load_scheduler_addon() {
 		 * @param int $id       		The block id, if global, id = $post->ID otherwise it is a random local id
 		 * @param array $block  		Contains all of our block settings data
 		 * @param bool $global  		Tells whether our block is global or local
-		 */ 
+		 */
 		function run_scheduler( $visibility_test, $id, $block, $global ) {
-			
+
 			$scheduler_enabled = ! empty( $block['visibility']['scheduler']['enable'] ) ? true : false;
-			
-			// If scheduling is enabled and the visibility test is already true, continue... 
+
+			// If scheduling is enabled and the visibility test is already true, continue...
 			if ( $visibility_test == true ) {
 				if ( $scheduler_enabled ) {
-			
+
 					/**
 					* current_time() will return an incorrect date/time if the server or another script sets a non-UTC timezone
 					* (e.g. if server timezone set to LA, current_time() will take another 8 hours off the already adjusted datetime)
@@ -284,11 +291,11 @@ function blox_load_scheduler_addon() {
 					*/
 					//$existing_timezone = date_default_timezone_get();
 					//date_default_timezone_set('UTC');
-	
+
 					$current_time = current_time( 'timestamp' );
-					$begin 		  = strtotime( $block['visibility']['scheduler']['begin'] );
-					$end   	 	  = strtotime( $block['visibility']['scheduler']['end'] );
-					
+					$begin 		  = strtotime( esc_attr( $block['visibility']['scheduler']['begin'] ) );
+					$end   	 	  = strtotime( esc_attr( $block['visibility']['scheduler']['end'] ) );
+
 					// Put timezone back in case other scripts rely on it
 					//date_default_timezone_set( $existing_timezone );
 
@@ -304,8 +311,8 @@ function blox_load_scheduler_addon() {
 				}
 			}
 		}
-		
-		
+
+
 		/**
 		 * Add scheduler meta data to both local and global blocks
 		 *
@@ -314,19 +321,19 @@ function blox_load_scheduler_addon() {
 		 * @param bool $visibility_test The current status of the visibility test
 		 * @param array $block  		Contains all of our block settings data
 		 * @param bool $global  		Tells whether our block is global or local
-		 */ 
+		 */
 		public function scheduler_meta_data( $output, $block, $global ) {
-		
+
 			$scheduler_enabled = ! empty( $block['visibility']['scheduler']['enable'] ) ? true : false;
 			$clock = '';
 			$separator = $global ? ' &nbsp;–&nbsp; ' : ' &nbsp;&middot&nbsp; ';
-			
+
 			if ( $scheduler_enabled ) {
-				
+
 				$current_time = current_time( 'timestamp' );
-				$begin 		  = strtotime( $block['visibility']['scheduler']['begin'] );
-				$end   	 	  = strtotime( $block['visibility']['scheduler']['end'] );
-				
+				$begin 		  = strtotime( esc_attr( $block['visibility']['scheduler']['begin'] ) );
+				$end   	 	  = strtotime( esc_attr( $block['visibility']['scheduler']['end'] ) );
+
 				$begin_text = empty( $block['visibility']['scheduler']['begin'] ) ? 'Now' : $block['visibility']['scheduler']['begin'];
 				$end_text = empty( $block['visibility']['scheduler']['end'] ) ? 'Never' : $block['visibility']['scheduler']['end'];
 
@@ -337,9 +344,9 @@ function blox_load_scheduler_addon() {
 					$clock = $separator . '<span class="dashicons dashicons-clock" style="cursor:help" title="Begin: ' . $begin_text . ' End: ' . $end_text . '"></span>';
 				}
 			}
-			
+
 			$output = $output . $clock;
-			
+
 			return $output;
 		}
 
@@ -350,14 +357,14 @@ function blox_load_scheduler_addon() {
 		 * @since 1.0.0
 		 */
 		public function enqueue_scripts() {
-			
-			wp_register_script( 'timepicker-scripts', plugin_dir_url( __FILE__ ) . 'assets/js/jquery-ui-timepicker-addon.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-slider', 'jquery-ui-datepicker' ) );
-       		
+
+			wp_register_script( 'timepicker-scripts', plugin_dir_url( __FILE__ ) . 'assets/js/jquery-ui-timepicker-addon.min.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-slider', 'jquery-ui-datepicker' ) );
+
    		    wp_register_script( 'scheduler-scripts', plugin_dir_url( __FILE__ ) . 'assets/js/scheduler.js', array( 'timepicker-scripts' ) );
        		wp_enqueue_script( 'scheduler-scripts' );
 		}
-		
-		
+
+
 		/* Enqueue all necessary styles
 		 *
 		 * @since 1.0.0
@@ -370,7 +377,7 @@ function blox_load_scheduler_addon() {
        		wp_enqueue_style( 'scheduler-styles' );
 		}
 
-	
+
 		/**
 		 * Let Blox know this addon has been activated.
 		 *
@@ -378,7 +385,7 @@ function blox_load_scheduler_addon() {
 		 */
 		public function notify_of_active_addon( $addons ) {
 
-			$addons['scheduler_addon'] = __( 'Scheduler Addon', 'blox-scheduler' );
+			$addons['scheduler_addon'] = __( 'Scheduler Add-on', 'blox-scheduler' );
 			return $addons;
 		}
 
