@@ -1,6 +1,6 @@
 # Blox Scheduler Add-on
 
-The Scheduler Add-on is an extension of the Wordpress plugin [Blox](https://github.com/ndiego/blox).
+The Scheduler Add-on is an extension of the WordPress plugin [Blox](https://github.com/ndiego/blox).
 
 > **Warning**
 > 
